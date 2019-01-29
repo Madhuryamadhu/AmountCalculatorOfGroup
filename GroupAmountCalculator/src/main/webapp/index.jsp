@@ -1,3 +1,5 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,6 +205,12 @@ h1 {
 	right: 0px;
 	width: 22px;
 }
+input#logoutButton {
+   position: relative;
+    bottom: 400px;
+    left: 0px;
+    width: 78px;
+}
 </style>
 </head>
 <body>
@@ -279,7 +287,11 @@ h1 {
 		</div>
 	</div>
 	<div id="profile">
-		<img src="resources/image/profile.png"  id="srcProfile"/>
+		<img src="resources/image/profile.png" id="srcProfile"/>
+	</div>
+	<div>
+		<input id="logoutButton" type="submit" value="LOGOUT"
+			onclick="logout()">
 	</div>
 </body>
 <script type="text/javascript">
@@ -302,7 +314,7 @@ h1 {
 					function() {
 
 						
-
+						
 						$("#showDetails").hide();
 						$("#finalDetails").hide();
 
@@ -540,8 +552,30 @@ h1 {
 			}
 		});
 	}
-	
-	
 
+	function logout() {
+
+		var dataArrayscreenshot = {};
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "logout",
+			data : JSON.stringify(dataArrayscreenshot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+				
+				alert("logged out successfully");
+				window.location = "login.jsp";
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+			},
+			done : function(e) {
+				alert("DONE");
+			}
+		});
+	}
 </script>
 </html>

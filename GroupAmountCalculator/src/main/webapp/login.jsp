@@ -4,6 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
 	background-image: url("resources/image/bckgnd-img.jpg");
@@ -166,30 +171,48 @@ ul.form-style-1 {
 
 span.error {
 	color: red;
+	position: absolute;
 }
 
 h1 {
-    color: #ffffff;
+	color: #ffffff;
 }
 
+.jumbotron {
+	background: none
+}
+
+.jumbotron .h1, .jumbotron h1 {
+	font-size: 45px;
+	color: white;
+}
+
+input#Loginpsw {
+    padding: 5px; 
+}
 </style>
 </head>
 <body>
-	<div class="fullBody">
+	<div class="fullBody jumbotron text-center">
 		<h1 align="center">
 			<u>Group Amount Calculator</u>
 		</h1>
 		<div id="division1">
 			<div id="outerDiv">
-				<div id="formDiv_1">
+				<div id="formDiv_1"
+					class="d-flex justify-content-center align-items-center container ">
 					<form id="form_1">
 						<ul class="form-style-1">
-							<li><label>E-mail:<span class="required">*</span></label> <input
-								id="Loginemail" type="email" name="emailaddress"
-								placeholder="abc@gmail.com" /></li>
-							<li><label>Password:<span class="required">*</span></label><input
-								id="Loginpsw" type="password" placeholder="Enter Password"
-								name="psw" /></li>
+							<div class="row">
+								<li><label>E-mail:<span class="required">*</span></label> <input
+									id="Loginemail" type="email" name="emailaddress"
+									placeholder="abc@gmail.com" /></li>
+							</div>
+							<div class="row">
+								<li><label>Password:<span class="required">*</span></label><input
+									id="Loginpsw" type="password" placeholder="Enter Password"
+									name="psw" /></li>
+							</div>
 						</ul>
 					</form>
 				</div>
@@ -246,7 +269,7 @@ h1 {
 	function LoginSubmit() {
 
 		$('.error').hide();
-		
+
 		valid = validate();
 
 		if (valid) {
@@ -256,39 +279,40 @@ h1 {
 			dataArrayLogin["loginpassword"] = $('#Loginpsw').val();
 			//similarly set other fields
 
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "login",
-				data : JSON.stringify(dataArrayLogin),
-				dataType : 'json',
-				timeout : 100000,
-				success : function(data) {
-					if (data.loginmailstatus == 'S') {
-						if (data.loginmailandpasswordstatus == 'S') {
-							window.location = "index.jsp";
-						}else if(data.loginmailandpasswordstatus == 'F'){
-							$("#Loginpsw").after(
-							"<span class='error'>Incorrect Password </span> ");
+			$
+					.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : "login",
+						data : JSON.stringify(dataArrayLogin),
+						dataType : 'json',
+						timeout : 100000,
+						success : function(data) {
+							if (data.loginmailstatus == 'S') {
+								if (data.loginmailandpasswordstatus == 'S') {
+									window.location = "index.jsp";
+								} else if (data.loginmailandpasswordstatus == 'F') {
+									$("#Loginpsw")
+											.after(
+													"<span class='error'>Incorrect Password </span> ");
+								}
+
+							} else if (data.loginmailstatus == 'F') {
+								$("#Loginemail")
+										.after(
+												"<span class='error'>Email ID not exists </span> ");
+							}
+
+						},
+						error : function(e) {
+							alert("ERROR: ", e);
+						},
+						done : function(e) {
+							alert("DONE");
 						}
-						
-						
-					} else if(data.loginmailstatus == 'F'){
-						$("#Loginemail").after(
-						"<span class='error'>Email ID not exists </span> ");
-					}
-					
-				},
-				error : function(e) {
-					alert("ERROR: ", e);
-				},
-				done : function(e) {
-					alert("DONE");
-				}
-			});
+					});
 		}
-		
+
 	}
-		
 </script>
 </html>

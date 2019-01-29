@@ -1,7 +1,10 @@
 package com.Capgemini.ownProjs.controllers;
 
+import java.awt.Window;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Controller;
@@ -35,17 +38,14 @@ public class SignUpLoginController {
 				
 				if(dao.signMeUp(bean)) {
 					bean.setStatus("S");   //success
+					
 					logger.info("Sign Up success!!!");
 				}else {
 					bean.setStatus("F");   //failure
 					logger.info("Sign Up failure!!!");
 				}
 			}
-			
-
-			
-			
-			
+	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class SignUpLoginController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody LoginBean login(@RequestBody LoginBean bean,HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody LoginBean login(@RequestBody LoginBean bean,HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		logger.info("Inside login method:-"+bean.toString());
 		LoginDao dao= new LoginDao();
 		try {
@@ -77,6 +77,9 @@ public class SignUpLoginController {
 				logger.info("F");
 			}
 
+			session.setAttribute("MAIL", bean.getLoginemail());
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,5 +89,24 @@ public class SignUpLoginController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public @ResponseBody LoginBean logout(@RequestBody LoginBean bean,HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		logger.info("Inside login method:-"+bean.toString());
+		
+		try {
+			
+			
+			 session.invalidate();
+			 
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		logger.info("Returning from login method:-"+bean.toString());
+		return bean;
+	}
 
 }
