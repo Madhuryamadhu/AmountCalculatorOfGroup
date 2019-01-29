@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 
 import com.Capgemini.ownProjs.SignUp.SignUpBean;
+import com.Capgemini.ownProjs.Common.ConnectionParam;
 import com.Capgemini.ownProjs.Login.LoginBean;
 
 public class LoginDao {
@@ -19,10 +20,10 @@ public class LoginDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-			final String DB_URL = "jdbc:mysql://localhost:3306/groupamountcalculator";
-			final String USER = "root";
-			final String PASS = " ";
+			final String JDBC_DRIVER = ConnectionParam.DRIVER;
+			final String DB_URL = ConnectionParam.URL;
+			final String USER = ConnectionParam.USERNAME;
+			final String PASS =ConnectionParam.PASSWORD;
 			logger.info("Connection parameters::- Driver->"+JDBC_DRIVER+" | URL->"+DB_URL+" | UserName->"+USER+" | Password->"+PASS );
 
 			Class.forName(JDBC_DRIVER);
@@ -82,10 +83,10 @@ public class LoginDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-			final String DB_URL = "jdbc:mysql://localhost:3306/groupamountcalculator";
-			final String USER = "root";
-			final String PASS = " ";
+			final String JDBC_DRIVER = ConnectionParam.DRIVER;
+			final String DB_URL = ConnectionParam.URL;
+			final String USER = ConnectionParam.USERNAME;
+			final String PASS =ConnectionParam.PASSWORD;
 			logger.info("Connection parameters::- Driver->"+JDBC_DRIVER+" | URL->"+DB_URL+" | UserName->"+USER+" | Password->"+PASS );
 
 			Class.forName(JDBC_DRIVER);

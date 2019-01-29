@@ -10,27 +10,29 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 
+import com.Capgemini.ownProjs.Common.ConnectionParam;
+
 public class SignUpDao {
 
 	private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
 
 	Connection conn = null;
 	PreparedStatement stmt = null;
-	
+
 	public boolean signMeUp(SignUpBean bean) {
-	
-	////create a table USER_DETAILS columns should be username password and name seqId(pk)
-				///Write logic here to insert the data into table
-				///in bean data is coming from front end. Use place holders in insert query.And return true if success.
+
+		////create a table USER_DETAILS columns should be username password and name seqId(pk)
+		///Write logic here to insert the data into table
+		///in bean data is coming from front end. Use place holders in insert query.And return true if success.
 		boolean isSuccess=true;
 		logger.info("outside try......");
 		try {
-			
+
 			logger.info("inside try......");
-			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-			final String DB_URL = "jdbc:mysql://localhost:3306/groupamountcalculator";
-			final String USER = "root";
-			final String PASS = " ";
+			final String JDBC_DRIVER = ConnectionParam.DRIVER;
+			final String DB_URL = ConnectionParam.URL;
+			final String USER = ConnectionParam.USERNAME;
+			final String PASS =ConnectionParam.PASSWORD;
 
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -54,40 +56,40 @@ public class SignUpDao {
 				isSuccess=false;
 				return isSuccess;
 			}
-			
+
 		} catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   }catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}//end finally try
+		}
 		return isSuccess;
 	}
 
-	
+
 	public boolean signupmailExists(SignUpBean bean) {
 		boolean isSuccess=false;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-			final String DB_URL = "jdbc:mysql://localhost:3306/groupamountcalculator";
-			final String USER = "root";
-			final String PASS = " ";
+			final String JDBC_DRIVER = ConnectionParam.DRIVER;
+			final String DB_URL = ConnectionParam.URL;
+			final String USER = ConnectionParam.USERNAME;
+			final String PASS =ConnectionParam.PASSWORD;
 			logger.info("Connection parameters::- Driver->"+JDBC_DRIVER+" | URL->"+DB_URL+" | UserName->"+USER+" | Password->"+PASS );
 
 			Class.forName(JDBC_DRIVER);
@@ -96,7 +98,7 @@ public class SignUpDao {
 			if (conn!=null) {
 				logger.info("Connection Establishment success!!!");
 
-				
+
 				String selectSQL = "Select count(*) as signcount from user_details where MAIL= ?";
 				PreparedStatement preparedStatement = conn.prepareStatement(selectSQL);
 				preparedStatement.setString(1, bean.getEmail());
@@ -140,7 +142,7 @@ public class SignUpDao {
 		return isSuccess;
 	}
 
-	
-	
-	
+
+
+
 }
