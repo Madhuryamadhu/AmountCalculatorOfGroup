@@ -4,6 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	background-image: url("resources/image/bckgnd-img.jpg");
@@ -166,38 +170,59 @@ ul.form-style-1 {
 
 span.error {
 	color: red;
+	    position: absolute;
 }
+
 h1 {
-    color: #ffffff;
+	color: #ffffff;
+}
+
+.jumbotron {
+	background: none
+}
+
+.jumbotron .h1, .jumbotron h1 {
+	font-size: 45px;
+	color: white;
 }
 </style>
 </head>
 <body>
-	<div class="fullBody">
+	<div class="fullBody jumbotron text-center">
 		<h1 align="center">
 			<u>Group Amount Calculator</u>
 		</h1>
 		<div id="division1">
 			<div id="outerDiv">
-				<div id="formDiv_1">
+				<div id="formDiv_1"  class="d-flex justify-content-center align-items-center container ">
 					<form id="form_1">
 						<ul class="form-style-1">
-							<li><label>Name:<span class="required">*</span></label> <input
-								type="text" id="name" name="field" placeholder="Enter Name" /></li>
-							<li><label>E-mail:<span class="required">*</span></label> <input
-								type="email" id="email" name="emailaddress"
-								placeholder="abc@gmail.com" /></li>
-							<li><label>Password:<span class="required">*</span></label><input
-								id="psw" type="password" placeholder="Enter Password" name="psw" />
-							</li>
-							<li><label>Confirm Password:<span class="required">*</span></label><input
-								id="Cpsw" type="password" placeholder="Confirm Password"
-								name="Confirmpsw" /></li>
+							<div class="row">
+								<li><label>Name:<span
+										class="required">*</span></label> <input type="text" id="name"
+									name="field" placeholder="Enter Name" /></li> 
+							</div>
+							<div class="row"> 
+								<li><label>E-mail:<span
+										class="required">*</span></label> <input type="email" id="email"
+									name="emailaddress" placeholder="abc@gmail.com" /></li>
+							</div>
+							<div class="row">
+								<li><label>Password:<span
+										class="required">*</span></label><input id="psw" type="password"
+									placeholder="Enter Password" name="psw" /></li>
+							</div>
+							<div class="row">
+								<li><label>Confirm
+										Password:<span class="required">*</span>
+								</label><input id="Cpsw" type="password" placeholder="Confirm Password"
+									name="Confirmpsw" /></li>
+							</div>
 						</ul>
 					</form>
 				</div>
 			</div>
-			<div align="center">
+			<div align="center" class="col text-center"> 
 				<button id="create" class="buttonAll" onclick="signUpSubmit()">SIGN
 					UP</button>
 			</div>
@@ -262,23 +287,19 @@ h1 {
 					.after(
 							"<span class='error'>Please Enter a Confirm Password </span> ");
 			valid = false;
-		} else if (!($('#psw').val()==$('#Cpsw').val())) {
-			$("#Cpsw")
-					.after(
-							"<span class='error'>Passwords do not match</span> ");
+		} else if (!($('#psw').val() == $('#Cpsw').val())) {
+			$("#Cpsw").after(
+					"<span class='error'>Passwords do not match</span> "); 
 			valid = false;
 		} else {
 			valid = (valid == true) ? true : false;
 		}
 
-		
-		
-		
 		return valid;
 	}
 
 	function signUpSubmit() {
-		
+
 		$('.error').hide();
 		//check if password and password2 are equal.If equal continue else return false and show a message for user.
 		valid = validate();
@@ -292,31 +313,33 @@ h1 {
 			dataArray["email"] = $('#email').val();
 			//similarly set other fields
 
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "signup",
-				data : JSON.stringify(dataArray),
-				dataType : 'json',
-				timeout : 100000,
-				success : function(data) {
-					
-						if (data.emailstatus == 'F') {
-							alert(" SUCESS!!!");
-							window.location = "login.jsp";
-						}else if(data.emailstatus == 'S'){
-							
-							$("#email").after(
-							"<span class='error'>Email already exists,pls login</span> ");
+			$
+					.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : "signup",
+						data : JSON.stringify(dataArray),
+						dataType : 'json',
+						timeout : 100000,
+						success : function(data) {
+
+							if (data.emailstatus == 'F') {
+								alert(" SUCESS!!!");
+								window.location = "login.jsp";
+							} else if (data.emailstatus == 'S') {
+
+								$("#email")
+										.after(
+												"<span class='error'>Email already exists,pls login</span> ");
+							}
+						},
+						error : function(e) {
+							alert("ERROR: ", e);
+						},
+						done : function(e) {
+							alert("DONE");
 						}
-				},
-				error : function(e) {
-					alert("ERROR: ", e);
-				},
-				done : function(e) {
-					alert("DONE");
-				}
-			});
+					});
 
 		}
 	}
