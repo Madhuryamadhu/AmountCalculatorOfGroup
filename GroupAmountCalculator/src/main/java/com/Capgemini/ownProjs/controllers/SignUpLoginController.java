@@ -97,7 +97,7 @@ public class SignUpLoginController {
 		try {
 			
 			
-			 session.invalidate();
+			session.removeAttribute("MAIL");
 			 
 			
 			

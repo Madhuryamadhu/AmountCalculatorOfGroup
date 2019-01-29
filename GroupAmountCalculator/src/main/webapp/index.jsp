@@ -1,5 +1,6 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,11 +206,12 @@ h1 {
 	right: 0px;
 	width: 22px;
 }
+
 input#logoutButton {
-   position: relative;
-    bottom: 400px;
-    left: 0px;
-    width: 78px;
+	position: relative;
+	bottom: 400px;
+	left: 0px;
+	width: 78px;
 }
 </style>
 </head>
@@ -287,7 +289,8 @@ input#logoutButton {
 		</div>
 	</div>
 	<div id="profile">
-		<img src="resources/image/profile.png" id="srcProfile"/>
+		<img src="resources/image/profile.png" id="srcProfile"
+			onmouseover="profile()" />
 	</div>
 	<div>
 		<input id="logoutButton" type="submit" value="LOGOUT"
@@ -313,8 +316,6 @@ input#logoutButton {
 			.ready(
 					function() {
 
-						
-						
 						$("#showDetails").hide();
 						$("#finalDetails").hide();
 
@@ -504,9 +505,17 @@ input#logoutButton {
 							}
 							return 4;
 						}
+						
+						
+						
 
 					});
 
+	function profile()
+	{
+		$("#profile").attr('title', "Logged in as ${sessionScope.MAIL}");
+	}
+	
 	function screenshotofAmmountDetails() {
 
 		var dataArrayscreenshot = {};
@@ -565,7 +574,7 @@ input#logoutButton {
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-				
+
 				alert("logged out successfully");
 				window.location = "login.jsp";
 			},
