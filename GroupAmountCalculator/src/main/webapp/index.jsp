@@ -202,100 +202,60 @@ h1 {
 
 #profile img {
 	position: absolute;
-	bottom: 377px;
+	bottom: 338px;
 	right: 0px;
 	width: 22px;
 }
 
 input#logoutButton {
 	position: relative;
-	bottom: 400px;
+	bottom: 360px;
 	left: 0px;
 	width: 78px;
 }
 </style>
 </head>
 <body>
-	<div class="fullBody">
-		<h1 align="center">
-			<u>Group Amount Calculator</u>
-		</h1>
-		<div id="division1">
-			<div id="outerDiv">
-				<div id="formDiv_1">
-					<form id="form_1">
-						<ul class="form-style-1">
-							<li id="warningOneDiv"><label>Name:<span
-									class="required">*</span></label> <select name="field4"
-								class="field-select">
-									<option value="">Select</option>
-									<option value="Akshay">Akshay</option>
-									<option value="Latha">Latha</option>
-									<option value="Madhurya">Madhurya</option>
-									<option value="Mohan">Mohan</option>
-									<option value="Pooja">Pooja</option>
-									<option value="Pradeep">Pradeep</option>
-									<option value="Sushma">Sushma</option>
-									<option value="Venki">Venki</option>
-							</select> <span id="warningOne1" style="color: red"></span></li>
-							<li id="warningTwoDiv"><label>Amount:<span
-									class="required">*</span></label> <input type="text" name="field1"
-								class="field-divided" placeholder="Amount" /> <span
-								id="warningTwo1" style="color: red"></span></li>
-							<li><label>Reason:</label> <input type="text" name="field2"
-								class="field-divided" placeholder="Why Amount Is Spent..." />&nbsp;
-							</li>
-						</ul>
-					</form>
-				</div>
-			</div>
-			<div align="center">
-				<button id="finalSubmit" class="buttonAll">Submit</button>
-				<button id="haveMore" class="buttonAll">Have More</button>
-			</div>
-		</div>
-
-		<div id="showDetails" align="center" class="showDetails">
-			<h1>Amount Paid List:</h1>
-			<div id="totAmountDetail1"></div>
-			<table id="amountList" style="width: 100%; height: 5px;">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Amount</th>
-						<th>Reason</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<div align="center">
-				<button id="amountSummary" class="buttonAll">Amount Summary</button>
-				<button id="reload1" class="buttonAll">Enter Details Again</button>
-			</div>
-		</div>
-		<div id="finalDetails" align="center">
-			<h1>Amount Refund Details:</h1>
-			<div id="totAmountDetail2"></div>
-			<div id="finalDetailList" style="background-color: #222222;"></div>
-			<div align="center">
-				<button id="details" class="buttonAll">Details</button>
-				<button id="reload2" class="buttonAll">Enter Details Again</button>
-			</div>
-		</div>
-		<br>
-		<div align="center">
-			<footer>&copy; Copyright 2018 Nam Goa Gang 2017</footer>
-		</div>
-	</div>
-	<div id="profile">
-		<img src="resources/image/profile.png" id="srcProfile"
-			onmouseover="profile()" />
-	</div>
-	<div>
-		<input id="logoutButton" type="submit" value="LOGOUT"
-			onclick="logout()">
-	</div>
+   <div class="fullBody">
+      <h1 align="center">
+         <u>Group Amount Calculator</u>
+      </h1>
+      <div id="division1">
+         <div id="outerDiv">
+            <div id="formDiv_1">
+               <form id="form_1">
+                  <ul class="form-style-1">
+                     <li id="warningOneDiv">
+                        <label>Name:<span class="required">*</span></label> 
+                        <input type="text" id="name" class="field-divided" placeholder="Name" />
+                        <span id="warningOne1" style="color: red"></span>
+                     </li>
+                     <li id="warningTwoDiv">
+                         <label>Amount:<span class="required">*</span></label> 
+                         <input type="text" id="amount" class="field-divided" placeholder="Amount" />
+                         <span id="warningTwo1" style="color: red"></span></li>
+                     <li>
+                         <label>Reason:</label>
+                         <input type="text" id="reason" class="field-divided" placeholder="Why Amount Is Spent..." />&nbsp;
+                     </li>
+                  </ul>
+               </form>
+            </div>
+         </div>
+         <div align="center">
+            <button onclick="submit()" class="buttonAll">Submit</button>
+            <button onclick="haveMoreDetails()" class="buttonAll">Have More</button>
+         </div>
+      </div>
+   <div id="profile">
+      <img src="resources/image/profile.png" id="srcProfile"
+         onmouseover="profile()" />
+   </div>
+   <div>
+      <input id="logoutButton" type="submit" value="LOGOUT"
+         onclick="logout()">
+   </div>
+   </div>
 </body>
 <script type="text/javascript">
 	var nameAmountMap = new Object();
@@ -312,171 +272,106 @@ input#logoutButton {
 	var amount = "";
 	var reason = "";
 	var status = 0;
-	$(document)
-			.ready(
-					function() {
-
-						$("#showDetails").hide();
-						$("#finalDetails").hide();
-
-						$('#amountSummary').on("click", function() {
-							$("#finalDetails").show();
-							$("#showDetails").hide();
+	
+	
+	var nameList=[];
+	var amountList=[];
+	var reasonList=[];
+	$(document).ready(function() {
+						
 						});
-
-						$('#reload1').on("click", function() {
-							window.location.reload();
-						});
-
-						$('#reload2').on("click", function() {
-							window.location.reload();
-						});
-
-						$('#details').on("click", function() {
-
-							var y = document.getElementById("showDetails");
-							if (y.style.display === "none") {
-								$("#finalDetails").hide();
-								y.style.display = "block";
-							} else {
-								$("#finalDetails").show();
-								y.style.display = "none";
+						
+						function haveMoreDetails(){
+							var name=$('#name').val();
+							var amount=$('#amount').val();
+							var reason=$('#reason').val();
+							
+							if(validate(name,amount)){
+								addToList(name, amount, reason);
+								$('#name').val('');
+								$('#amount').val('');
+								$('#reason').val('');
+							}else{
+								return false;
 							}
-							screenshotofAmmountsummary()
-						});
-
-						$('#haveMore')
-								.on(
-										"click",
-										function() {
-											x = document.getElementById("form_"
-													+ count);
-											name = x.elements[0].value;
-											amount = x.elements[1].value;
-											reason = x.elements[2].value;
-											status = validate(name, amount);
-											if (status == 1) {
-												document
-														.getElementById('warningOne'
-																+ count).innerHTML = '(please select a name)';
-											} else if (status == 2) {
-												document
-														.getElementById('warningTwo'
-																+ count).innerHTML = '(amount cannot be blank)';
-											} else if (status == 3) {
-												document
-														.getElementById('warningTwo'
-																+ count).innerHTML = '(amount should be a number)';
-											} else {
-												$("#formDiv_" + count).hide();
-												addingToMap(name, amount,
-														reason);
-
-												html = "<div id=\"formDiv_"+count+"\"><form id=\"form_"+count+"\"><ul class=\"form-style-1\"><li id=\"warningOneDiv\"><label>Name:<span class=\"required\">*</span></label> <select name=\"field4\" class=\"field-select\"><option value=\"\">Select</option><option value=\"Akshay\">Akshay</option><option value=\"Latha\">Latha</option><option value=\"Madhurya\">Madhurya</option><option value=\"Mohan\">Mohan</option><option value=\"Pooja\">Pooja</option><option value=\"Pradeep\">Pradeep</option><option value=\"Sushma\">Sushma</option><option value=\"Venki\">Venki</option></select> <span id=\"warningOne"+count+"\" style=\"color: red\"></span></li><li id=\"warningTwoDiv\"><label>Amount:<span class=\"required\">*</span></label> <input type=\"text\" name=\"field1\" class=\"field-divided\" placeholder=\"Amount\" /> <span id=\"warningTwo"+count+"\" style=\"color: red\"></span></li><li><label>Reason:</label> <input type=\"text\" name=\"field2\" class=\"field-divided\" placeholder=\"Why Amount Is Spent...\" />&nbsp;</li></ul></form></div>";
-												$('#outerDiv').append(html);
-											}
-										});
-
-						$('#finalSubmit')
-								.on(
-										"click",
-										function() {
-											x = document.getElementById("form_"
-													+ count);
-											name = x.elements[0].value;
-											amount = x.elements[1].value;
-											reason = x.elements[2].value;
-											status = validate(name, amount);
-											if (status == 1) {
-												document
-														.getElementById('warningOne'
-																+ count).innerHTML = '(please select a name)';
-											} else if (status == 2) {
-												document
-														.getElementById('warningTwo'
-																+ count).innerHTML = '(amount cannot be blank)';
-											} else if (status == 3) {
-												document
-														.getElementById('warningTwo'
-																+ count).innerHTML = '(amount should be a number)';
-											} else {
-
-												addingToMap(name, amount,
-														reason);
-												perHeadAmount = Object
-														.keys(nameAmountMap).length;
-												perHeadAmount = Math
-														.round(parseFloat(totalAmount
-																/ perHeadAmount));
-												for ( var i in nameAmountMap) {
-													if (Math
-															.round(parseFloat(nameAmountMap[i])) > perHeadAmount) {
-														finalAmountHtml = finalAmountHtml
-																+ "<font color=\"green\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
-																+ i
-																+ " have paid "
-																+ nameAmountMap[i]
-																+ " and should get back Rs "
-																+ (nameAmountMap[i] - perHeadAmount)
-																+ "!!</strong></font><br>";
-													} else if (Math
-															.round(parseFloat(nameAmountMap[i])) < perHeadAmount) {
-														finalAmountHtml = finalAmountHtml
-																+ "<font color=\"red\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
-																+ i
-																+ " have paid "
-																+ nameAmountMap[i]
-																+ " and should pay Rs "
-																+ (perHeadAmount - nameAmountMap[i])
-																+ " more!!</strong></font><br>";
-													} else {
-														finalAmountHtml = finalAmountHtml
-																+ "<font color=\"yellow\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
-																+ i
-																+ " have paid "
-																+ nameAmountMap[i]
-																+ " and that is enough!!</strong></font><br>";
-													}
-												}
-												document
-														.getElementById('totAmountDetail2').innerHTML = "Total Amount:-"
-														+ totalAmount
-														+ "   |   Total Person:-"
-														+ Object
-																.keys(nameAmountMap).length
-														+ "   |   Per Head:-"
-														+ perHeadAmount;
-												document
-														.getElementById('totAmountDetail1').innerHTML = "Total Amount:-"
-														+ totalAmount
-														+ "   |   Total Person:-"
-														+ Object
-																.keys(nameAmountMap).length
-														+ "   |   Per Head:-"
-														+ perHeadAmount;
-												$('#finalDetailList').append(
-														finalAmountHtml);
-												$("#division1").hide();
-												$("#finalDetails").show();
-											}
-
-											screenshotofAmmountDetails();
-										});
-
-						function addingToMap(name, amount, reason) {
-							if (nameAmountMap[name] === undefined) {
-								nameAmountMap[name] = amount;
-							} else {
-								nameAmountMap[name] = Math.round(parseFloat(
-										nameAmountMap[name], 10)
-										+ parseFloat(amount, 10))
-										+ "";
-							}
-							totalAmount = totalAmount
-									+ Math.round(parseFloat(amount));
-							showDetails(name, amount, reason);
-							count++;
+							
+							
 						}
+						
+						function validate(name, amount) {
+							$('#warningOne').val('');
+							$('#warningTwo').val('');
+							
+							if (name == undefined || name == "") {
+								$("#warningOne").text("Please select a name");
+								return false;
+							} else if (amount == undefined || amount == ""|| amount == null) {
+								$("#warningTwo").text("Amount cannot be blank");
+								return false;
+							} else if (!(/^\d+$/.test(amount))) {
+								$("#warningTwo").text("Amount should be a number");
+								return false;
+							}
+							return true;
+						}
+
+						function addToList(name, amount, reason) {
+							nameList.push(name);
+							amountList.push(amount);
+							if(amount == undefined || amount == ""|| amount == null)
+								reason="-";
+							reasonList.push(reason);
+						}
+						
+						
+						function submit() {
+							
+							var name=$('#name').val();
+							var amount=$('#amount').val();
+							var reason=$('#reason').val();
+							
+							if(validate(name,amount)){
+								addToList(name, amount, reason);
+							}else{
+								return false;
+							}
+							
+							    /* if(nameList.length==0||amountList.length==0){
+							    	$("#warningOne").text("Please enter values before submitting");
+							    	return false;
+							    } */
+								var dataArray = {}
+								dataArray["userMail"] = '${sessionScope.MAIL}';
+								dataArray["name"] = nameList;
+								dataArray["amount"] = amountList;
+								dataArray["reason"] = reasonList;
+								$.ajax({
+											type : "POST",
+											contentType : "application/json",
+											url : "amountSubmit",
+											data : JSON.stringify(dataArray),
+											dataType : 'json',
+											timeout : 100000,
+											success : function(data) {
+												if (data.status == 'S') {
+													alert("SUCCESS");
+													window.location = "amountInSentence.jsp";
+												} else if (data.loginmailstatus == 'F') {
+													alert("Fail");
+												}
+
+											},
+											error : function(e) {
+												alert("ERROR: ", e);
+											},
+											done : function(e) {
+												alert("DONE");
+											}
+										});
+							}
+
+						
+						
 						var htmltable = "";
 						function showDetails(name, amount, reason) {
 							if (reason == "" || reason == null) {
@@ -492,24 +387,7 @@ input#logoutButton {
 							$(html2).appendTo("#amountList tbody");
 						}
 
-						function validate(name, amount) {
-							document.getElementById('warningOne' + count).innerHTML = "";
-							document.getElementById('warningTwo' + count).innerHTML = "";
-							if (name == undefined || name == "") {
-								return 1;
-							} else if (amount == undefined || amount == ""
-									|| amount == null) {
-								return 2;
-							} else if (!(/^\d+$/.test(amount))) {
-								return 3;
-							}
-							return 4;
-						}
 						
-						
-						
-
-					});
 
 	function profile()
 	{
