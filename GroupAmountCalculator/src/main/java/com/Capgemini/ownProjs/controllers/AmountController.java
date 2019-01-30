@@ -22,7 +22,7 @@ public class AmountController {
 		logger.info("Inside addAmountDetails method:-"+bean.toString());
 		AmountDetailsDao dao= new AmountDetailsDao();
 		try {
-                 if(dao.insertAmountDetails(bean)) {
+                 if(dao.insertAmountDetails(bean,request.getSession())) {
                 	 bean.setStatus("S");
                  }else {
                 	 bean.setStatus("F");
@@ -30,6 +30,20 @@ public class AmountController {
 		} catch (Exception e) {
 		}
 		logger.info("returning from addAmountDetails method:-"+bean.toString());
+		return bean;
+	}
+	
+	
+	@RequestMapping(value = "/getMessages", method = RequestMethod.POST)
+	public @ResponseBody AmountDeatilsBean getMessages(@RequestBody AmountDeatilsBean bean,HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getMessages method:-"+bean.toString());
+		AmountDetailsDao dao= new AmountDetailsDao();
+		try {
+                 bean=dao.getMessagesToDisplay(bean,request.getSession());
+                		 
+		} catch (Exception e) {
+		}
+		logger.info("returning from getMessagess method:-"+bean.toString());
 		return bean;
 	}
 

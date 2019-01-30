@@ -197,6 +197,22 @@ input#logoutButton {
 div#details {
 	background-color: #6acff0;
 }
+
+.yellowMessage{
+  color: yellow;
+  font-family: Courier New;
+  font-size: xx-large;
+}
+.redMessage{
+  color: red;
+  font-family: Courier New;
+  font-size: xx-large;
+}
+.greenMessage{
+  color: green;
+  font-family: Courier New;
+  font-size: xx-large;
+}
 </style>
 </head>
 <body>
@@ -207,18 +223,7 @@ div#details {
 
 	</div>
 	<div id="details" align="center">
-		<h2>Amount Refund Details</h2>
-		<div id="totAmountDetails">Total Amount:-100 | Total Person:-1 |
-			Per Head:-100</div>
-		<font color="yellow" style="font-family: Courier New;" size="6"
-			class="redFont"> <strong>Akshay have paid 100 and
-				that is enough!!</strong>
-		</font> <br> <font color="green" style="font-family: Courier New;"
-			size="6" class="redFont"> <strong>Latha have paid 200
-				and should get back Rs 100!!</strong>
-		</font> <br> <font color="red" style="font-family: Courier New;"
-			size="6" class="redFont"><strong>Madhurya have paid 0
-				and should pay Rs 100 more!!</strong> </font><br>
+	    <div id="deatilsMessage"></div>
 		<div align="center">
 			<button id="details" class="buttonAll">Details</button>
 			<button id="reload2" class="buttonAll">Enter Details Again</button>
@@ -232,10 +237,37 @@ div#details {
 		<input id="logoutButton" type="submit" value="LOGOUT"
 			onclick="logout()">
 	</div>
-	</div>
 </body>
 <script type="text/javascript">
+$(document).ready(function() {
 	
+	loadMessages();
+});
+
+function loadMessages(){
+	var dataArrayLogin = {}
+	dataArrayLogin["userId"] = '${sessionScope.USER_ID}';
+
+	$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "getMessages",
+				data : JSON.stringify(dataArrayLogin),
+				dataType : 'json',
+				timeout : 100000,
+				success : function(data) {
+					$('#deatilsMessage').append(data.messageHtml); 
+				},
+				error : function(e) {
+					alert("ERROR: ", e);
+				},
+				done : function(e) {
+					alert("DONE");
+				}
+			});
+}
+
+
 	function profile() {
 		$("#profile").attr('title', "Logged in as ${sessionScope.MAIL}");
 	}

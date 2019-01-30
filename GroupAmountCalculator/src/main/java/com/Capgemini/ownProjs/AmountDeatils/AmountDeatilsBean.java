@@ -9,7 +9,58 @@ public class AmountDeatilsBean {
 	private List<String> amount;
 	private List<String> reason;
 	
+	private String userId;
+	private String messageHtml;
+	private String namesComma;
+	private String amountsComma;
+	private String perHeadAmount;
+	private String totalPerson;
+	private String totalAmount;
 	
+	
+	public String getPerHeadAmount() {
+		return perHeadAmount;
+	}
+	public void setPerHeadAmount(String perHeadAmount) {
+		this.perHeadAmount = perHeadAmount;
+	}
+	public String getTotalPerson() {
+		return totalPerson;
+	}
+	public void setTotalPerson(String totalPerson) {
+		this.totalPerson = totalPerson;
+	}
+	public String getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(String totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	public String getNamesComma() {
+		return namesComma;
+	}
+	public void setNamesComma(String namesComma) {
+		this.namesComma = namesComma;
+	}
+	public String getAmountsComma() {
+		return amountsComma;
+	}
+	public void setAmountsComma(String amountsComma) {
+		this.amountsComma = amountsComma;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public String getMessageHtml() {
+		return messageHtml;
+	}
+	public void setMessageHtml(String messageHtml) {
+		this.messageHtml = messageHtml;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -46,14 +97,19 @@ public class AmountDeatilsBean {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("AmountDeatilsBean [");
-		if (name != null) {
-			builder.append("name=");
-			builder.append(name);
+		if (userMail != null) {
+			builder.append("userMail=");
+			builder.append(userMail);
 			builder.append(", ");
 		}
 		if (status != null) {
 			builder.append("status=");
 			builder.append(status);
+			builder.append(", ");
+		}
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
 			builder.append(", ");
 		}
 		if (amount != null) {
@@ -64,16 +120,46 @@ public class AmountDeatilsBean {
 		if (reason != null) {
 			builder.append("reason=");
 			builder.append(reason);
+			builder.append(", ");
 		}
-		if (userMail != null) {
-			builder.append("userMail=");
-			builder.append(userMail);
+		if (userId != null) {
+			builder.append("userId=");
+			builder.append(userId);
+			builder.append(", ");
+		}
+		if (messageHtml != null) {
+			builder.append("messageMap=");
+			builder.append(messageHtml);
+			builder.append(", ");
+		}
+		if (namesComma != null) {
+			builder.append("namesComma=");
+			builder.append(namesComma);
+			builder.append(", ");
+		}
+		if (amountsComma != null) {
+			builder.append("amountsComma=");
+			builder.append(amountsComma);
+			builder.append(", ");
+		}
+		if (perHeadAmount != null) {
+			builder.append("perHeadAmount=");
+			builder.append(perHeadAmount);
+			builder.append(", ");
+		}
+		if (totalPerson != null) {
+			builder.append("totalPerson=");
+			builder.append(totalPerson);
+			builder.append(", ");
+		}
+		if (totalAmount != null) {
+			builder.append("totalAmount=");
+			builder.append(totalAmount);
 		}
 		builder.append("]");
 		return builder.toString();
 	}
-
-
+	
 	
 	
 }

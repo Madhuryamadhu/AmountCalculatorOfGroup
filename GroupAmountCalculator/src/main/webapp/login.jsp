@@ -292,9 +292,7 @@ input#Loginpsw {
 								if (data.loginmailandpasswordstatus == 'S') {
 									window.location = "index.jsp";
 								} else if (data.loginmailandpasswordstatus == 'F') {
-									$("#Loginpsw")
-											.after(
-													"<span class='error'>Incorrect Password </span> ");
+									$("#Loginpsw").after("<span class='error'>Incorrect Password </span> ");
 								}
 
 							} else if (data.loginmailstatus == 'F') {
