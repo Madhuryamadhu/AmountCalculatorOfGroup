@@ -7,4 +7,7 @@ public class ConnectionParam {
 	public static final String USERNAME="root";
 	public static final String PASSWORD="root";
 	
+	//Pdf File Upload Path
+	public static final String PDF_UPLOAD_PATH="F:/ProjectWorkSpace/JobPortal/GroupAmountCalculator/PdfFolder";
+	
 }

@@ -11,6 +11,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <style type="text/css">
 body {
 	background-image: url("resources/image/bckgnd-img.jpg");
@@ -182,7 +184,7 @@ input#logoutButton {
 	position: relative;
 	bottom: 360px;
 	left: 0px;
-	width: 78px;
+	width: 120px;
 }
 
 .jumbotron {
@@ -226,51 +228,71 @@ div#details {
 
 	</div>
 	<div id="details" align="center">
-		<h2>Amount Paid Lists</h2>
-		<div id="totAmountDetails">Total Amount:-100 | Total Person:-1 |
-			Per Head:-100</div>
-		<table id="amountList" style="width: 100%; height: 5px;">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Amount</th>
-					<th>Reason</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td align="center">Akshay</td>
-					<td align="center">100</td>
-					<td align="center">-</td>
-				</tr>
-				<tr>
-					<td align="center">Latha</td>
-					<td align="center">200</td>
-					<td align="center">-</td>
-				</tr>
-				<tr>
-					<td align="center">Madhurya</td>
-					<td align="center">0</td>
-					<td align="center">-</td>
-				</tr>
-			</tbody>
-		</table>
-		<div align="center">
-			<button id="amountSummary" class="buttonAll">Amount Summary</button>
-			<button id="reload1" class="buttonAll">Enter Details Again</button>
+		<div id="detailsInTable">
 		</div>
 	</div>
+	<div align="center">
+			<button id="amountSummary" class="buttonAll"  onclick="window.location.href='amountInSentence.jsp'">Amount Summary</button>
+			<button id="reload1" class="buttonAll">Enter Details Again</button>
+		</div>
 	<div id="profile">
 		<img src="resources/image/profile.png" id="srcProfile"
 			onmouseover="profile()" />
 	</div>
 	<div>
-		<input id="logoutButton" type="submit" value="LOGOUT"
+		<input class="buttonAll" id="logoutButton" type="submit" value="LOGOUT"
 			onclick="logout()">
 	</div>
+	<div>
+	  <button class="buttonAll" onclick="generate();">Generate Screenshot »</button>
 	</div>
+	<div>
+	  <button class="buttonAll" onclick="generatePdf();">Generate Screenshot »</button>
+	</div>
+	<!--This is to download pdf file-->
+	<form style="display: hidden" action="downloadPDF" method="POST" id="downloadfileForm">
+		<input type="hidden" id="pdfFullPath" name="pdfFullPath" value="" /> 
+		<input type="hidden" id="pdfFileName" name="pdfFileName" value="" />
+	</form>
 </body>
 <script type="text/javascript">
+
+$(document).ready(function() {
+	
+	DetailsInTable();
+});
+
+    function generatePdf(){
+    	var dataArrayLogin = {}
+		dataArrayLogin["userId"] = '${sessionScope.USER_ID}';
+		dataArrayLogin["userMail"] = '${sessionScope.MAIL}';
+		$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "createPDF",
+					data : JSON.stringify(dataArrayLogin),
+					dataType : 'json',
+					timeout : 100000,
+					success : function(data) {
+							downloadFile(data.pdfFullPath,data.pdfFileName);
+					},
+					error : function(e) {
+						alert("ERROR: ", e);
+					},
+					done : function(e) {
+						alert("DONE");
+					}
+				});
+    	
+    }
+
+    function downloadFile(filepath, filename) {
+		$("#pdfFileName").val(filename);
+		$("#pdfFullPath").val(filepath);
+		$("#downloadfileForm").submit();
+	}
+    
+    
 	function profile() {
 		$("#profile").attr('title', "Logged in as ${sessionScope.MAIL}");
 	}
@@ -299,5 +321,106 @@ div#details {
 			}
 		});
 	}
+	
+	
+	function DetailsInTable(){
+		var dataArrayLogin = {}
+		dataArrayLogin["userId"] = '${sessionScope.USER_ID}';
+		dataArrayLogin["userMail"] = '${sessionScope.MAIL}';
+		$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "getMessagesInTable",
+					data : JSON.stringify(dataArrayLogin),
+					dataType : 'json',
+					timeout : 100000,
+					success : function(data) {
+						$('#detailsInTable').append(data.messageHtml); 
+					},
+					error : function(e) {
+						alert("ERROR: ", e);
+					},
+					done : function(e) {
+						alert("DONE");
+					}
+				});
+		//screenshotofAmmountDetails();
+	}
+
+	function screenshotofAmmountDetails() {
+
+		var dataArrayscreenshot = {};
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "screenshotofAmmountDetails",
+			data : JSON.stringify(dataArrayscreenshot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+			},
+			done : function(e) {
+				alert("DONE");
+			}
+		});
+
+	}
+
+	
+	(function(exports) {
+	    function urlsToAbsolute(nodeList) {
+	        if (!nodeList.length) {
+	            return [];
+	        }
+	        var attrName = 'href';
+	        if (nodeList[0].__proto__ === HTMLImageElement.prototype || nodeList[0].__proto__ === HTMLScriptElement.prototype) {
+	            attrName = 'src';
+	        }
+	        nodeList = [].map.call(nodeList, function(el, i) {
+	            var attr = el.getAttribute(attrName);
+	            if (!attr) {
+	                return;
+	            }
+	            var absURL = /^(https?|data):/i.test(attr);
+	            if (absURL) {
+	                return el;
+	            } else {
+	                return el;
+	            }
+	        });
+	        return nodeList;
+	    }
+
+	    function screenshotPage() {
+	        var wrapper = document.getElementById('details');
+	        html2canvas(wrapper, {
+	            onrendered: function(canvas) {
+	                canvas.toBlob(function(blob) {
+	                    saveAs(blob, 'DetailsScreenshot.png');
+	                });
+	            }
+	        });
+	    }
+
+	    function addOnPageLoad_() {
+	        window.addEventListener('DOMContentLoaded', function(e) {
+	            var scrollX = document.documentElement.dataset.scrollX || 0;
+	            var scrollY = document.documentElement.dataset.scrollY || 0;
+	            window.scrollTo(scrollX, scrollY);
+	        });
+	    }
+
+	    function generate() {
+	        screenshotPage();
+	    }
+	    exports.screenshotPage = screenshotPage;
+	    exports.generate = generate;
+	})(window);	
+	
 </script>
 </html>

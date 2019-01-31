@@ -11,6 +11,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <style type="text/css">
 body {
 	background-image: url("resources/image/bckgnd-img.jpg");
@@ -182,7 +184,7 @@ input#logoutButton {
 	position: relative;
 	bottom: 360px;
 	left: 0px;
-	width: 78px;
+	width: 120px;
 }
 
 .jumbotron {
@@ -213,9 +215,10 @@ div#details {
   font-family: Courier New;
   font-size: xx-large;
 }
+
 </style>
 </head>
-<body>
+<body >
 	<div class="fullBody jumbotron text-center">
 		<h1 align="center">
 			<u>Group Amount Calculator</u>
@@ -224,19 +227,22 @@ div#details {
 	</div>
 	<div id="details" align="center">
 	    <div id="deatilsMessage"></div>
-		<div align="center">
-			<button id="details" class="buttonAll">Details</button>
-			<button id="reload2" class="buttonAll">Enter Details Again</button>
-		</div>
+		
+		
 	</div>
+	<div align="center">
+			<button id="detailsbutton" class="buttonAll" onclick="window.location.href='amountInTable.jsp'">Details</button>
+			<button id="reload2" class="buttonAll" onclick="window.location.href='index.jsp'">Enter Details Again</button>
+		</div>
 	<div id="profile">
 		<img src="resources/image/profile.png" id="srcProfile"
 			onmouseover="profile()" />
 	</div>
 	<div>
-		<input id="logoutButton" type="submit" value="LOGOUT"
+		<input class="buttonAll" id="logoutButton" type="submit" value="LOGOUT"
 			onclick="logout()">
 	</div>
+	<button class="buttonAll" onclick="generate();">Generate Screenshot »</button>
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -247,7 +253,7 @@ $(document).ready(function() {
 function loadMessages(){
 	var dataArrayLogin = {}
 	dataArrayLogin["userId"] = '${sessionScope.USER_ID}';
-
+	dataArrayLogin["userMail"] = '${sessionScope.MAIL}';
 	$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -265,6 +271,8 @@ function loadMessages(){
 					alert("DONE");
 				}
 			});
+	
+	//screenshotofAmmountsummary();
 }
 
 
@@ -296,5 +304,80 @@ function loadMessages(){
 			}
 		});
 	}
+	
+	function screenshotofAmmountsummary() {
+
+		var dataArrayscreenshot = {};
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "screenshotofAmmountsummary",
+			data : JSON.stringify(dataArrayscreenshot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+			},
+			done : function(e) {
+				alert("DONE");
+			}
+		});
+	}
+	
+	(function(exports) {
+	    function urlsToAbsolute(nodeList) {
+	        if (!nodeList.length) {
+	            return [];
+	        }
+	        var attrName = 'href';
+	        if (nodeList[0].__proto__ === HTMLImageElement.prototype || nodeList[0].__proto__ === HTMLScriptElement.prototype) {
+	            attrName = 'src';
+	        }
+	        nodeList = [].map.call(nodeList, function(el, i) {
+	            var attr = el.getAttribute(attrName);
+	            if (!attr) {
+	                return;
+	            }
+	            var absURL = /^(https?|data):/i.test(attr);
+	            if (absURL) {
+	                return el;
+	            } else {
+	                return el;
+	            }
+	        });
+	        return nodeList;
+	    }
+
+	    function screenshotPage() {
+	        var wrapper = document.getElementById('details');
+	        html2canvas(wrapper, {
+	        	 background:'#fff', 
+	            onrendered: function(canvas) {
+	                canvas.toBlob(function(blob) {
+	                    saveAs(blob, 'SummaryScreenshot.png');
+	                });
+	            }
+	        });
+	    }
+
+	    function addOnPageLoad_() {
+	        window.addEventListener('DOMContentLoaded', function(e) {
+	            var scrollX = document.documentElement.dataset.scrollX || 0;
+	            var scrollY = document.documentElement.dataset.scrollY || 0;
+	            window.scrollTo(scrollX, scrollY);
+	        });
+	    }
+
+	    function generate() {
+	        screenshotPage();
+	    }
+	    exports.screenshotPage = screenshotPage;
+	    exports.generate = generate;
+	})(window);
+	
 </script>
 </html>

@@ -1,36 +1,44 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style type="text/css">
 body {
-    background-image: url("resources/image/bckgnd-img.jpg");
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: top center !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed;
+	background-image: url("resources/image/bckgnd-img.jpg");
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: top center !important;
+	background-repeat: no-repeat !important;
+	background-attachment: fixed;
 }
+
 .form-style-1 {
 	margin: 10px auto;
 	max-width: 400px;
 	padding: 20px 12px 10px 20px;
 	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
 .form-style-1 li {
 	padding: 0;
 	display: block;
 	list-style: none;
 	margin: 10px 0 0 0;
 }
+
 .form-style-1 label {
 	margin: 0 0 3px 0;
 	padding: 0px;
 	display: block;
 	font-weight: bold;
 }
+
 .form-style-1 input[type=text], .form-style-1 input[type=date],
 	.form-style-1 input[type=datetime], .form-style-1 input[type=number],
 	.form-style-1 input[type=search], .form-style-1 input[type=time],
@@ -48,6 +56,7 @@ body {
 	-o-transition: all 0.30s ease-in-out;
 	outline: none;
 }
+
 .form-style-1 input[type=text]:focus, .form-style-1 input[type=date]:focus,
 	.form-style-1 input[type=datetime]:focus, .form-style-1 input[type=number]:focus,
 	.form-style-1 input[type=search]:focus, .form-style-1 input[type=time]:focus,
@@ -58,30 +67,38 @@ body {
 	box-shadow: 0 0 8px #88D5E9;
 	border: 1px solid #88D5E9;
 }
+
 .form-style-1 .field-divided {
 	width: 49%;
 }
+
 .form-style-1 .field-long {
 	width: 100%;
 }
+
 .form-style-1 .field-select {
 	width: 100%;
 }
+
 .form-style-1 .field-textarea {
 	height: 100px;
 }
- .showDetails {
+
+.showDetails {
 	background-color: #222222;
-} 
+}
+
 div#finalDetails {
 	background: #222222;
 }
+
 .form-style-1 input[type=submit], .form-style-1 input[type=button] {
 	background: #4B99AD;
 	padding: 8px 15px 8px 15px;
 	border: none;
 	color: #fff;
 }
+
 .form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover
 	{
 	background: #4691A4;
@@ -89,29 +106,35 @@ div#finalDetails {
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 }
+
 .form-style-1 .required {
 	color: red;
 }
+
 .submit-button {
 	background: #4B99AD;
 	padding: 8px 15px 8px 15px;
 	border: none;
 	color: #fff;
 }
+
 .submit-button:hover {
 	background: #4691A4;
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 }
+
 h3 {
 	padding: 0px;
 	margin: 0px;
 }
+
 h1 {
 	font-family: "Times New Roman", Times, serif;
 	font-style: oblique;
 }
+
 .buttonAll {
 	background-color: #247BA0; /* Green */
 	border: none;
@@ -126,40 +149,70 @@ h1 {
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }
+
 .buttonAll:hover {
 	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
 		rgba(0, 0, 0, 0.19);
 }
+
 .finalDetails {
 	background-color: #222222;
 }
 
-div#totAmountDetail2, div#totAmountDetail1{
- font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
- size: 1000px;
- color: white;
+div#totAmountDetail2, div#totAmountDetail1 {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	size: 1000px;
+	color: white;
 }
 /*table for details */
 #amountList {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
 }
+
 #amountList td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
+	border: 1px solid #ddd;
+	padding: 8px;
 }
-#amountList tr:nth-child(even){background-color: #f2f2f2;}
-#amountList tr:hover {background-color: #ddd;}
+
+#amountList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#amountList tr:hover {
+	background-color: #ddd;
+}
+
 #amountList th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #247BA0;
-    color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #247BA0;
+	color: white;
 }
 
+h1 {
+	color: #ffffff;
+}
 
+#profile {
+	position: relative;
+}
+
+#profile img {
+	position: absolute;
+	bottom: 377px;
+	right: 0px;
+	width: 22px;
+}
+
+input#logoutButton {
+	position: relative;
+	bottom: 400px;
+	left: 0px;
+	width: 78px;
+}
 </style>
 </head>
 <body>
@@ -202,7 +255,7 @@ div#totAmountDetail2, div#totAmountDetail1{
 			</div>
 		</div>
 
-		<!-- <div id="showDetails" align="center" class="showDetails">
+		<div id="showDetails" align="center" class="showDetails">
 			<h1>Amount Paid List:</h1>
 			<div id="totAmountDetail1"></div>
 			<table id="amountList" style="width: 100%; height: 5px;">
@@ -230,45 +283,300 @@ div#totAmountDetail2, div#totAmountDetail1{
 				<button id="reload2" class="buttonAll">Enter Details Again</button>
 			</div>
 		</div>
-		<br> -->
+		<br>
 		<div align="center">
 			<footer>&copy; Copyright 2018 Nam Goa Gang 2017</footer>
 		</div>
 	</div>
+	<div id="profile">
+		<img src="resources/image/profile.png" id="srcProfile"
+			onmouseover="profile()" />
+	</div>
+	<div>
+		<input id="logoutButton" type="submit" value="LOGOUT"
+			onclick="logout()">
+	</div>
 </body>
 <script type="text/javascript">
-var nameAmountMap = new Object();
+	var nameAmountMap = new Object();
 
-var x;
-var html="";
-var count=1;
-var html2="";
-var totalAmount=0;
-var finalAmountHtml="";
-var perHeadAmount=0;
-var finalDetailList="";
-var name="";
-var amount="";
-var reason="";
-var status=0;
-$(document).ready(function(){
-       alert("Loading!!!");
-      testing();
-	});
+	var x;
+	var html = "";
+	var count = 1;
+	var html2 = "";
+	var totalAmount = 0;
+	var finalAmountHtml = "";
+	var perHeadAmount = 0;
+	var finalDetailList = "";
+	var name = "";
+	var amount = "";
+	var reason = "";
+	var status = 0;
+	$(document)
+			.ready(
+					function() {
+
+						$("#showDetails").hide();
+						$("#finalDetails").hide();
+
+						$('#amountSummary').on("click", function() {
+							$("#finalDetails").show();
+							$("#showDetails").hide();
+						});
+
+						$('#reload1').on("click", function() {
+							window.location.reload();
+						});
+
+						$('#reload2').on("click", function() {
+							window.location.reload();
+						});
+
+						$('#details').on("click", function() {
+
+							var y = document.getElementById("showDetails");
+							if (y.style.display === "none") {
+								$("#finalDetails").hide();
+								y.style.display = "block";
+							} else {
+								$("#finalDetails").show();
+								y.style.display = "none";
+							}
+							screenshotofAmmountsummary()
+						});
+
+						$('#haveMore')
+								.on(
+										"click",
+										function() {
+											x = document.getElementById("form_"
+													+ count);
+											name = x.elements[0].value;
+											amount = x.elements[1].value;
+											reason = x.elements[2].value;
+											status = validate(name, amount);
+											if (status == 1) {
+												document
+														.getElementById('warningOne'
+																+ count).innerHTML = '(please select a name)';
+											} else if (status == 2) {
+												document
+														.getElementById('warningTwo'
+																+ count).innerHTML = '(amount cannot be blank)';
+											} else if (status == 3) {
+												document
+														.getElementById('warningTwo'
+																+ count).innerHTML = '(amount should be a number)';
+											} else {
+												$("#formDiv_" + count).hide();
+												addingToMap(name, amount,
+														reason);
+
+												html = "<div id=\"formDiv_"+count+"\"><form id=\"form_"+count+"\"><ul class=\"form-style-1\"><li id=\"warningOneDiv\"><label>Name:<span class=\"required\">*</span></label> <select name=\"field4\" class=\"field-select\"><option value=\"\">Select</option><option value=\"Akshay\">Akshay</option><option value=\"Latha\">Latha</option><option value=\"Madhurya\">Madhurya</option><option value=\"Mohan\">Mohan</option><option value=\"Pooja\">Pooja</option><option value=\"Pradeep\">Pradeep</option><option value=\"Sushma\">Sushma</option><option value=\"Venki\">Venki</option></select> <span id=\"warningOne"+count+"\" style=\"color: red\"></span></li><li id=\"warningTwoDiv\"><label>Amount:<span class=\"required\">*</span></label> <input type=\"text\" name=\"field1\" class=\"field-divided\" placeholder=\"Amount\" /> <span id=\"warningTwo"+count+"\" style=\"color: red\"></span></li><li><label>Reason:</label> <input type=\"text\" name=\"field2\" class=\"field-divided\" placeholder=\"Why Amount Is Spent...\" />&nbsp;</li></ul></form></div>";
+												$('#outerDiv').append(html);
+											}
+										});
+
+						$('#finalSubmit')
+								.on(
+										"click",
+										function() {
+											x = document.getElementById("form_"
+													+ count);
+											name = x.elements[0].value;
+											amount = x.elements[1].value;
+											reason = x.elements[2].value;
+											status = validate(name, amount);
+											if (status == 1) {
+												document
+														.getElementById('warningOne'
+																+ count).innerHTML = '(please select a name)';
+											} else if (status == 2) {
+												document
+														.getElementById('warningTwo'
+																+ count).innerHTML = '(amount cannot be blank)';
+											} else if (status == 3) {
+												document
+														.getElementById('warningTwo'
+																+ count).innerHTML = '(amount should be a number)';
+											} else {
+
+												addingToMap(name, amount,
+														reason);
+												perHeadAmount = Object
+														.keys(nameAmountMap).length;
+												perHeadAmount = Math
+														.round(parseFloat(totalAmount
+																/ perHeadAmount));
+												for ( var i in nameAmountMap) {
+													if (Math
+															.round(parseFloat(nameAmountMap[i])) > perHeadAmount) {
+														finalAmountHtml = finalAmountHtml
+																+ "<font color=\"green\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
+																+ i
+																+ " have paid "
+																+ nameAmountMap[i]
+																+ " and should get back Rs "
+																+ (nameAmountMap[i] - perHeadAmount)
+																+ "!!</strong></font><br>";
+													} else if (Math
+															.round(parseFloat(nameAmountMap[i])) < perHeadAmount) {
+														finalAmountHtml = finalAmountHtml
+																+ "<font color=\"red\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
+																+ i
+																+ " have paid "
+																+ nameAmountMap[i]
+																+ " and should pay Rs "
+																+ (perHeadAmount - nameAmountMap[i])
+																+ " more!!</strong></font><br>";
+													} else {
+														finalAmountHtml = finalAmountHtml
+																+ "<font color=\"yellow\" style=\"font-family:Courier New;\" size=\"6\" class=\"redFont\"><strong>"
+																+ i
+																+ " have paid "
+																+ nameAmountMap[i]
+																+ " and that is enough!!</strong></font><br>";
+													}
+												}
+												document
+														.getElementById('totAmountDetail2').innerHTML = "Total Amount:-"
+														+ totalAmount
+														+ "   |   Total Person:-"
+														+ Object
+																.keys(nameAmountMap).length
+														+ "   |   Per Head:-"
+														+ perHeadAmount;
+												document
+														.getElementById('totAmountDetail1').innerHTML = "Total Amount:-"
+														+ totalAmount
+														+ "   |   Total Person:-"
+														+ Object
+																.keys(nameAmountMap).length
+														+ "   |   Per Head:-"
+														+ perHeadAmount;
+												$('#finalDetailList').append(
+														finalAmountHtml);
+												$("#division1").hide();
+												$("#finalDetails").show();
+											}
+
+											screenshotofAmmountDetails();
+										});
+
+						function addingToMap(name, amount, reason) {
+							if (nameAmountMap[name] === undefined) {
+								nameAmountMap[name] = amount;
+							} else {
+								nameAmountMap[name] = Math.round(parseFloat(
+										nameAmountMap[name], 10)
+										+ parseFloat(amount, 10))
+										+ "";
+							}
+							totalAmount = totalAmount
+									+ Math.round(parseFloat(amount));
+							showDetails(name, amount, reason);
+							count++;
+						}
+						var htmltable = "";
+						function showDetails(name, amount, reason) {
+							if (reason == "" || reason == null) {
+								reason = "-";
+							}
+							html2 = "<tr style=\"background-color: #f2f2f2;}\"><td align=\"center\">"
+									+ name
+									+ "</td><td align=\"center\">"
+									+ Math.round(parseFloat(amount))
+									+ "</td><td align=\"center\">"
+									+ reason
+									+ "</td></tr>"
+							$(html2).appendTo("#amountList tbody");
+						}
+
+						function validate(name, amount) {
+							document.getElementById('warningOne' + count).innerHTML = "";
+							document.getElementById('warningTwo' + count).innerHTML = "";
+							if (name == undefined || name == "") {
+								return 1;
+							} else if (amount == undefined || amount == ""
+									|| amount == null) {
+								return 2;
+							} else if (!(/^\d+$/.test(amount))) {
+								return 3;
+							}
+							return 4;
+						}
+						
+						
+						
+
+					});
+
+	function profile()
+	{
+		$("#profile").attr('title', "Logged in as ${sessionScope.MAIL}");
+	}
 	
-	function testing(){
-		var data = {}
-		data["reason"] ='Testing';
-		
+	function screenshotofAmmountDetails() {
+
+		var dataArrayscreenshot = {};
+
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url : "login",
-			data : JSON.stringify(data),
+			url : "screenshotofAmmountDetails",
+			data : JSON.stringify(dataArrayscreenshot),
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-				alert(data.reason);
+
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+			},
+			done : function(e) {
+				alert("DONE");
+			}
+		});
+
+	}
+	function screenshotofAmmountsummary() {
+
+		var dataArrayscreenshot = {};
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "screenshotofAmmountsummary",
+			data : JSON.stringify(dataArrayscreenshot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+
+			},
+			error : function(e) {
+				alert("ERROR: ", e);
+			},
+			done : function(e) {
+				alert("DONE");
+			}
+		});
+	}
+
+	function logout() {
+
+		var dataArrayscreenshot = {};
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "logout",
+			data : JSON.stringify(dataArrayscreenshot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+
+				alert("logged out successfully");
+				window.location = "login.jsp";
 			},
 			error : function(e) {
 				alert("ERROR: ", e);

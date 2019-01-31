@@ -211,7 +211,7 @@ input#logoutButton {
 	position: relative;
 	bottom: 360px;
 	left: 0px;
-	width: 78px;
+	width: 120px;
 }
 </style>
 </head>
@@ -252,7 +252,7 @@ input#logoutButton {
          onmouseover="profile()" />
    </div>
    <div>
-      <input id="logoutButton" type="submit" value="LOGOUT"
+      <input class="buttonAll" id="logoutButton" type="submit" value="LOGOUT"
          onclick="logout()">
    </div>
    </div>
@@ -318,7 +318,7 @@ input#logoutButton {
 						function addToList(name, amount, reason) {
 							nameList.push(name);
 							amountList.push(amount);
-							if(amount == undefined || amount == ""|| amount == null)
+							if(reason == undefined || reason == ""|| reason == null)
 								reason="-";
 							reasonList.push(reason);
 						}
@@ -373,7 +373,8 @@ input#logoutButton {
 						
 						
 						var htmltable = "";
-						function showDetails(name, amount, reason) {
+						
+						/* function showDetails(name, amount, reason) {
 							if (reason == "" || reason == null) {
 								reason = "-";
 							}
@@ -386,7 +387,7 @@ input#logoutButton {
 									+ "</td></tr>"
 							$(html2).appendTo("#amountList tbody");
 						}
-
+ */
 						
 
 	function profile()
@@ -394,29 +395,7 @@ input#logoutButton {
 		$("#profile").attr('title', "Logged in as ${sessionScope.MAIL}");
 	}
 	
-	function screenshotofAmmountDetails() {
-
-		var dataArrayscreenshot = {};
-
-		$.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : "screenshotofAmmountDetails",
-			data : JSON.stringify(dataArrayscreenshot),
-			dataType : 'json',
-			timeout : 100000,
-			success : function(data) {
-
-			},
-			error : function(e) {
-				alert("ERROR: ", e);
-			},
-			done : function(e) {
-				alert("DONE");
-			}
-		});
-
-	}
+	
 	function screenshotofAmmountsummary() {
 
 		var dataArrayscreenshot = {};

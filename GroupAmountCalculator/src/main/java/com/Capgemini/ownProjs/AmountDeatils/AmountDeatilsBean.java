@@ -13,11 +13,33 @@ public class AmountDeatilsBean {
 	private String messageHtml;
 	private String namesComma;
 	private String amountsComma;
+	private String reasonsComma;
 	private String perHeadAmount;
 	private String totalPerson;
 	private String totalAmount;
 	
+	private String pdfFullPath;
+	private String pdfFileName;
 	
+	
+	public String getPdfFileName() {
+		return pdfFileName;
+	}
+	public void setPdfFileName(String pdfFileName) {
+		this.pdfFileName = pdfFileName;
+	}
+	public String getPdfFullPath() {
+		return pdfFullPath;
+	}
+	public void setPdfFullPath(String pdfFullPath) {
+		this.pdfFullPath = pdfFullPath;
+	}
+	public String getReasonsComma() {
+		return reasonsComma;
+	}
+	public void setReasonsComma(String reasonsComma) {
+		this.reasonsComma = reasonsComma;
+	}
 	public String getPerHeadAmount() {
 		return perHeadAmount;
 	}
@@ -122,13 +144,18 @@ public class AmountDeatilsBean {
 			builder.append(reason);
 			builder.append(", ");
 		}
+		if (pdfFullPath != null) {
+			builder.append("pdfFullPath=");
+			builder.append(pdfFullPath);
+			builder.append(", ");
+		}
 		if (userId != null) {
 			builder.append("userId=");
 			builder.append(userId);
 			builder.append(", ");
 		}
 		if (messageHtml != null) {
-			builder.append("messageMap=");
+			builder.append("messageHtml=");
 			builder.append(messageHtml);
 			builder.append(", ");
 		}
@@ -142,6 +169,11 @@ public class AmountDeatilsBean {
 			builder.append(amountsComma);
 			builder.append(", ");
 		}
+		if (reasonsComma != null) {
+			builder.append("reasonsComma=");
+			builder.append(reasonsComma);
+			builder.append(", ");
+		}
 		if (perHeadAmount != null) {
 			builder.append("perHeadAmount=");
 			builder.append(perHeadAmount);
@@ -150,6 +182,11 @@ public class AmountDeatilsBean {
 		if (totalPerson != null) {
 			builder.append("totalPerson=");
 			builder.append(totalPerson);
+			builder.append(", ");
+		}
+		if (pdfFileName != null) {
+			builder.append("pdfFileName=");
+			builder.append(pdfFileName);
 			builder.append(", ");
 		}
 		if (totalAmount != null) {
